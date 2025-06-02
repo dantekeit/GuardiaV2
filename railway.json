@@ -1,5 +1,0 @@
-"build": {
-  "builder": "heroku/heroku-buildpack-python",
-  "buildCommand": "pip install -r requirements.txt"
-}
-
