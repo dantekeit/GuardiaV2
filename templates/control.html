@@ -1,0 +1,198 @@
+<!-- templates/control.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Control Fin de Semana</title>
+
+  <!-- Google Fonts: Roboto -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- Bootstrap (solo para grid y utilidades) -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1AnmOf7Hf8dOJO44A7QpFpF2ZpqHVsXK2H5PENpvfYbNfQz2+kN"
+    crossorigin="anonymous"
+  />
+
+  <!-- Nuestro CSS (control.css debe contener los estilos que ajustan anchos, flex, gap, etc.) -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/control.css') }}" />
+</head>
+<body>
+  <!-- DIV para tsParticles (fondo animado) -->
+  <div id="tsparticles"></div>
+
+  <!-- Contenedor principal -->
+  <div class="container">
+    <h1>Control de Presencia Fines de Semana</h1>
+
+    <!-- FORMULARIO PARA SUBIR EL EXCEL -->
+    <form
+      method="POST"
+      action="{{ url_for('control_fin_semana') }}"
+      enctype="multipart/form-data"
+      class="upload-form"
+    >
+      <div class="row g-2 align-items-center">
+        <div class="col-md-4">
+          <label for="file" class="form-label">Sube el archivo de programación</label>
+        </div>
+        <div class="col-md-5">
+          <input
+            id="file"
+            name="file"
+            type="file"
+            class="form-control"
+            accept=".xls,.xlsx"
+            required
+          />
+        </div>
+        <div class="col-md-3 text-end">
+          <button type="submit" class="btn btn-primary">Cargar y Mostrar</button>
+        </div>
+      </div>
+    </form>
+
+    <!-- Mostrar error si lo hubiera -->
+    {% if error %}
+      <div class="alert alert-danger mt-3">{{ error }}</div>
+    {% endif %}
+
+    {% if groups %}
+      <!-- LISTADO DE “EQUIPOS” (horizontal) -->
+      <div class="mb-4">
+        <ul id="teamList" class="list-unstyled d-flex flex-wrap">
+          {% for team in groups.keys() %}
+            <li class="me-2 mb-2">
+              <a
+                href="#"
+                class="team-link"
+                data-index="{{ loop.index0 }}"
+              >
+                {{ team }}
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+
+      <!-- TABLAS DE PROGRAMACIÓN “OCULTAS” POR DEFECTO -->
+      {% for team, rows in groups.items() %}
+        <div class="team-table" id="table-{{ loop.index0 }}" style="display: none;">
+          <h5 class="mb-3">Programación: <strong>{{ team }}</strong></h5>
+          <table class="table-custom w-100">
+            <thead>
+              <tr>
+                <!-- Aquí unificamos Intercambio y Tipo en un solo encabezado -->
+                <th colspan="2">Intercambio / Tipo</th>
+
+                {% for col in columns %}
+                  <th>{{ col }}</th>
+                {% endfor %}
+                <th>Observación</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for row in rows %}
+                <tr data-segmento="{{ row['Segmento'] }}">
+                  <!-- 1ª celda: swap-select y type-select juntos (gracias al CSS de control.css) -->
+                  <td>
+                    <select class="swap-select form-select">
+                      <option value="">--Seleccionar--</option>
+                    </select>
+                  </td>
+                  <td>
+                    <select class="type-select form-select">
+                      <option value="franco">Franco</option>
+                      <option value="horario">Horario</option>
+                    </select>
+                  </td>
+
+                  <!-- Columnas “dinámicas” (Nombre, Equipo, Segmento, Ingreso/Egreso Sábado/Domingo) -->
+                  {% for col in columns %}
+                    {% if col.startswith('Ingreso') or col.startswith('Egreso') %}
+                      <td>
+                        <input
+                          type="time"
+                          class="time-cell"
+                          data-col="{{ col }}"
+                          value="{{ row[col][:5] if row[col] }}"
+                        />
+                      </td>
+                    {% else %}
+                      <td class="data-cell" data-col="{{ col }}">
+                        {{ row[col] }}
+                      </td>
+                    {% endif %}
+                  {% endfor %}
+
+                  <!-- Observación por fila -->
+                  <td>
+                    <input
+                      type="text"
+                      class="obs-initial form-control"
+                      placeholder="Observación"
+                    />
+                  </td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      {% endfor %}
+
+      <!-- BOTÓN GENERAR GUARDIA (visible siempre) -->
+      <div class="text-end mb-5">
+        <button id="generateBtn" class="btn btn-success">Generar Guardia</button>
+      </div>
+    {% endif %}
+  </div>
+
+  <!-- tsParticles (fondo animado) -->
+  <script src="https://cdn.jsdelivr.net/npm/tsparticles@2/tsparticles.bundle.min.js"></script>
+  <script src="{{ url_for('static', filename='js/particles-config.js') }}"></script>
+
+  <!-- Inyectar arrays / columnas para JS -->
+  <script id="allColsData" type="application/json">
+    {{ columns|tojson }}
+  </script>
+
+  <!-- JS de intercambio y generación de guardia -->
+  <script src="{{ url_for('static', filename='js/control.js') }}"></script>
+
+  <!-- Script para mostrar/ocultar la tabla correcta al hacer clic en el equipo -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const teamLinks = document.querySelectorAll('.team-link');
+
+      teamLinks.forEach(link => {
+        link.addEventListener('click', e => {
+          e.preventDefault();
+          const idx = link.getAttribute('data-index');
+
+          // Ocultar todas las tablas
+          document.querySelectorAll('.team-table').forEach(div => {
+            div.style.display = 'none';
+          });
+
+          // Mostrar solo la tabla correspondiente (table-<idx>)
+          const target = document.getElementById(`table-${idx}`);
+          if (target) {
+            target.style.display = 'block';
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        });
+      });
+
+      // Si quieres que, al cargar, se muestre automáticamente el primer equipo:
+      // if (teamLinks.length > 0) {
+      //   teamLinks[0].click();
+      // }
+    });
+  </script>
+</body>
+</html>

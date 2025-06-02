@@ -1,0 +1,260 @@
+/* ============================
+   control.css
+   (Estilos para control_fin_semana)
+   ============================ */
+
+/* ============================
+   1) Fuente general y fondo
+   ============================ */
+body {
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #0d1321; /* Azul-negro muy oscuro */
+  color: #ffffff;
+  overflow-x: hidden;
+}
+.container {
+  position: relative;
+  z-index: 10; /* Para que el contenido esté por encima del canvas de partículas */
+  max-width: 1100px;
+  margin: 0 auto;
+  padding-top: 2rem;
+  padding-bottom: 3rem;
+}
+h1 {
+  color: #ffffff;
+  font-weight: 500;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+/* ============================
+   2) FORMULARIO: subir archivo
+   ============================ */
+form.upload-form {
+  background-color: rgba(255,255,255,0.08);
+  border-radius: 8px;
+  padding: 1.25rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+  margin-bottom: 2rem;
+}
+.upload-form .form-label {
+  color: #f1f4f8;
+  font-weight: 500;
+}
+/* Aumentar tamaño de input type="file" */
+.upload-form .form-control[type="file"] {
+  font-size: 1rem;             /* Fuente más grande */
+  padding: 0.5rem 0.75rem;     /* Más padding interno */
+  background-color: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.3);
+  color: #ffffff;
+}
+.upload-form .form-control[type="file"]::-webkit-file-upload-button {
+  cursor: pointer;
+}
+/* Botón “Cargar y Mostrar” más grande */
+.upload-form .btn-primary {
+  font-size: 1rem;
+  padding: 0.65rem 1.25rem;
+  background-color: #1abc9c;
+  border-color: #16a085;
+}
+.upload-form .btn-primary:hover {
+  background-color: #16a085;
+  border-color: #117a65;
+}
+
+/* ============================
+   3) LISTA DE “EQUIPOS” (team-link)
+   ============================ */
+.team-link {
+  font-family: 'Roboto', sans-serif;
+  font-size: 1.1rem;           /* Ligero aumento de tamaño */
+  color: #ecf0f1;              /* Blanco humo */
+  text-decoration: none;       /* Sin subrayado */
+  display: inline-block;
+  padding: 6px 10px;
+  background-color: rgba(255,255,255,0.08);
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+.team-link:hover {
+  background-color: rgba(255,255,255,0.20); /* Hover un poco más opaco */
+  color: #ffffff;                           /* Sigue blanco puro */
+}
+
+/* ============================
+   4) TABLA “table-custom” (Control)
+   ============================ */
+.table-custom {
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: separate;
+  border-spacing: 0;
+  background-color: rgba(255,255,255,0.05);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+  margin-bottom: 1rem;
+}
+.table-custom thead {
+  background-color: #1abc9c; /* Verde turquesa */
+}
+.table-custom thead th {
+  color: #ffffff;
+  font-weight: 500;
+  padding: 1rem 0.75rem;      /* Más padding para encabezado */
+  text-align: center;
+  font-size: 1rem;            /* Fuente ligeramente mayor */
+  border: none;
+}
+.table-custom thead th:first-child {
+  border-top-left-radius: 8px;
+}
+.table-custom thead th:last-child {
+  border-top-right-radius: 8px;
+}
+
+.table-custom tbody tr:nth-of-type(even) {
+  background-color: rgba(255,255,255,0.02);
+}
+.table-custom tbody tr:hover {
+  background-color: rgba(26, 188, 156, 0.15);
+}
+.table-custom tbody td {
+  padding: 1rem 0.75rem;      /* Padding horizontal y vertical más amplio */
+  text-align: center;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  font-size: 1rem;            /* Para que el texto no quede cortado */
+  color: #ecf0f1;
+}
+.table-custom tbody tr:last-child td:first-child {
+  border-bottom-left-radius: 8px;
+}
+.table-custom tbody tr:last-child td:last-child {
+  border-bottom-right-radius: 8px;
+}
+
+/* ============================
+   5) INPUTS DE HORA / OBSERVACIÓN (Control)
+   ============================ */
+.time-cell {
+  border: none;
+  background: transparent;
+  color: #ecf0f1;
+  font-size: 1rem;
+  text-align: center;
+  width: 100%;
+  padding: 0.45rem 0.5rem;     /* Padding aumentado para que no se superponga */
+}
+.time-cell:focus {
+  outline: 2px solid #1abc9c;
+  background-color: rgba(255,255,255,0.15);
+  border-radius: 4px;
+  color: #000000;
+}
+
+.obs-initial {
+  width: 100%;
+  box-sizing: border-box;
+  border: none;
+  background: transparent;
+  color: #ecf0f1;
+  font-size: 1rem;
+  padding: 0.55rem 0.5rem;     /* Más espacio para escribir */
+  text-align: left;
+}
+.obs-initial:focus {
+  outline: 2px solid #1abc9c;
+  background-color: rgba(255,255,255,0.15);
+  border-radius: 4px;
+  color: #000000;
+}
+
+/* ============================
+   6) SELECTS “minimalistas” (Control)
+   ============================ */
+.form-select {
+  background-color: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: #ecf0f1;
+  font-size: 1rem;
+  padding: 0.45rem 0.5rem;     /* Espacio suficiente */
+}
+.form-select:focus {
+  outline: 2px solid #1abc9c;
+  box-shadow: none;
+  background-color: rgba(255,255,255,0.15);
+  color: #000000;
+}
+
+/* ============================
+   7) BOTÓN “Generar Guardia” (Control)
+   ============================ */
+.btn-success {
+  background-color: #27ae60;
+  border-color: #1e8449;
+  font-weight: 500;
+  border-radius: 4px;
+  padding: 0.6rem 1.2rem;
+  font-size: 1rem;             /* Fuente un poco más grande */
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+}
+.btn-success:hover {
+  background-color: #1e8449;
+  border-color: #186a3c;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+/* Separador entre tabla y siguiente sección */
+.team-table {
+  margin-top: 1.5rem;
+}
+
+/* ================================
+   8) AJUSTES EXTRA PARA LA COLUMNA “Intercambio”
+   ================================ */
+/* Aumentar padding interno del <select class="swap-select"> */
+.swap-select {
+  padding: 0.6rem 1rem;    /* Mucho espacio interno */
+  font-size: 1rem;         /* Para que “—Seleccionar—” no se corte */
+  min-width: 100%;         /* Ocupa todo el ancho de la celda */
+  box-sizing: border-box;  /* Padding incluído en el ancho */
+}
+
+/* ================================
+   9) AjDUSTES Extra Primera Columna
+   ================================ */
+/* 9.1) Hacemos que la primera columna (Intercambio) tenga un ancho mínimo razonable */
+.table-custom th:nth-child(1),
+.table-custom td:nth-child(1) {
+  min-width: 160px;     /* Puedes afinar este valor: 160px suele ser suficiente */
+}
+
+/* 9.2) Forzamos un gap (espacio) entre el select “swap-select” y el select “type-select”
+      dentro de la misma celda, usando display:flex */
+.table-custom tbody td:nth-child(1) {
+  display: flex;
+  gap: 0.5rem;          /* Espacio horizontal entre ambos selects */
+  justify-content: center; 
+  align-items: center; 
+}
+
+/* 9.3) Ajustamos el ancho interno (padding) de cada select para que no se comprima */
+.table-custom tbody td:nth-child(1) .swap-select {
+  flex: 1;                 /* Ocupa todo el espacio disponible */
+  padding: 0.6rem 1rem;    /* Aumentamos padding interno */
+  font-size: 1rem;
+}
+.table-custom tbody td:nth-child(1) .type-select {
+  flex: 0 0 5rem;          /* Fija un ancho aproximado (puedes ajustar 5rem a 6rem si el “Franco” se corta) */
+  padding: 0.6rem 0.5rem;
+  font-size: 1rem;
+}
+
+/* 9.4) Por si acaso, también aseguramos que el select de “Tipo” no se reduzca demasiado */
+.table-custom tbody td:nth-child(1) .type-select option {
+  white-space: nowrap;
+}

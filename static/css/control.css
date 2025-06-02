@@ -1,0 +1,254 @@
+/* ============================
+   control.css
+   (Solo estilos de control_fin_semana)
+   ============================ */
+
+/* ============================
+   Fuente general y fondo 
+   ============================ */
+body {
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #0d1321; /* Azul-negro muy oscuro */
+  color: #ffffff;
+  overflow-x: hidden;
+}
+.container {
+  position: relative;
+  z-index: 10; /* Para que el contenido esté por encima del canvas de partículas */
+  max-width: 1100px;
+  margin: 0 auto;
+  padding-top: 2rem;
+  padding-bottom: 3rem;
+}
+h1 {
+  color: #ffffff;
+  font-weight: 500;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+/* ============================
+   FORMULARIO: subir archivo 
+   ============================ */
+form.upload-form {
+  background-color: rgba(255,255,255,0.08);
+  border-radius: 8px;
+  padding: 1.25rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+  margin-bottom: 2rem;
+}
+.upload-form .form-label {
+  color: #f1f4f8;
+  font-weight: 500;
+}
+
+/* Aumentar tamaño de input type="file" */
+.upload-form .form-control[type="file"] {
+  font-size: 1rem;             /* Fuente más grande */
+  padding: 0.5rem 0.75rem;     /* Más padding interno */
+  background-color: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.3);
+  color: #ffffff;
+}
+.upload-form .form-control[type="file"]::-webkit-file-upload-button {
+  cursor: pointer;
+}
+
+/* Botón “Cargar y Mostrar” más grande */
+.upload-form .btn-primary {
+  font-size: 1rem;
+  padding: 0.65rem 1.25rem;
+  background-color: #1abc9c;
+  border-color: #16a085;
+}
+.upload-form .btn-primary:hover {
+  background-color: #16a085;
+  border-color: #117a65;
+}
+
+/* ============================
+   LISTA DE “EQUIPOS” (team-link)
+   ============================ */
+.team-link {
+  font-family: 'Roboto', sans-serif;
+  font-size: 1.1rem;           /* Ligero aumento de tamaño */
+  color: #ecf0f1;              /* Blanco humo */
+  text-decoration: none;       /* Sin subrayado */
+  display: inline-block;
+  padding: 6px 10px;
+  background-color: rgba(255,255,255,0.08);
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+.team-link:hover {
+  background-color: rgba(255,255,255,0.20); /* Hover un poco más opaco */
+  color: #ffffff;                           /* Sigue blanco puro */
+}
+
+/* ============================
+   TABLA “table-custom” (Control)
+   ============================ */
+.table-custom {
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: separate;
+  border-spacing: 0;
+  background-color: rgba(255,255,255,0.05);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+  margin-bottom: 1rem;
+}
+.table-custom thead {
+  background-color: #1abc9c; /* Verde turquesa */
+}
+.table-custom thead th {
+  color: #ffffff;
+  font-weight: 500;
+  padding: 0.75rem 0.5rem;
+  text-align: center;
+  font-size: 0.95rem;
+  border: none;
+}
+.table-custom thead th:first-child {
+  border-top-left-radius: 8px;
+}
+.table-custom thead th:last-child {
+  border-top-right-radius: 8px;
+}
+
+.table-custom tbody tr:nth-of-type(even) {
+  background-color: rgba(255,255,255,0.02);
+}
+.table-custom tbody tr:hover {
+  background-color: rgba(26, 188, 156, 0.15);
+}
+.table-custom tbody td {
+  padding: 0.55rem 0.5rem;
+  text-align: center;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  font-size: 0.9rem;
+  color: #ecf0f1;
+}
+.table-custom tbody tr:last-child td:first-child {
+  border-bottom-left-radius: 8px;
+}
+.table-custom tbody tr:last-child td:last-child {
+  border-bottom-right-radius: 8px;
+}
+
+/* ============================
+   INPUTS DE HORA / OBSERVACIÓN (Control)
+   ============================ */
+.time-cell {
+  border: none;
+  background: transparent;
+  color: #ecf0f1;
+  font-size: 1rem;
+  text-align: center;
+  width: 100%;
+  padding: 0.25rem 0.25rem;
+}
+.time-cell:focus {
+  outline: 2px solid #1abc9c;
+  background-color: rgba(255,255,255,0.15);
+  border-radius: 4px;
+  color: #000000;
+}
+
+.obs-initial {
+  width: 100%;
+  box-sizing: border-box;
+  border: none;
+  background: transparent;
+  color: #ecf0f1;
+  font-size: 1rem;
+  padding: 0.35rem 0.5rem;
+  text-align: left;
+}
+.obs-initial:focus {
+  outline: 2px solid #1abc9c;
+  background-color: rgba(255,255,255,0.15);
+  border-radius: 4px;
+  color: #000000;
+}
+
+/* ============================
+   SELECTS “minimalistas” (Control)
+   ============================ */
+.form-select {
+  background-color: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: #ecf0f1;
+  font-size: 1rem;
+  padding: 0.35rem 0.5rem;
+}
+.form-select:focus {
+  outline: 2px solid #1abc9c;
+  box-shadow: none;
+  background-color: rgba(255,255,255,0.15);
+  color: #000000;
+}
+
+/* ============================
+   BOTÓN “Generar Guardia” (Control)
+   ============================ */
+.btn-success {
+  background-color: #27ae60;
+  border-color: #1e8449;
+  font-weight: 500;
+  border-radius: 4px;
+  padding: 0.6rem 1.2rem;
+  font-size: 0.95rem;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+}
+.btn-success:hover {
+  background-color: #1e8449;
+  border-color: #186a3c;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+/* Separador entre tabla y siguiente sección */
+.team-table {
+  margin-top: 1rem;
+}
+
+
+/* ============================
+   Ajustes específicos para que
+   “swap-select” y “type-select”
+   no se superpongan en la primera
+   columna de la tabla
+   ============================ */
+
+/* 1) Asegúrate de que, en tu .table-custom,
+   la primera celda (td) sea un contenedor flex */
+.table-custom tbody td:first-child {
+  display: flex;
+  flex-wrap: nowrap;       /* No empujar los elementos a nueva línea */
+  justify-content: center;  /* Centrar horizontalmente (opcional) */
+  align-items: center;      /* Centrar verticalmente */
+  gap: 0.5rem;              /* Espacio de medio rem entre los <select> */
+  padding: 0.5rem;          /* Dale un poco más de padding para que no queden “apretados” */
+  box-sizing: border-box;   /* Para que el padding no expanda la celda más allá de su ancho */
+}
+
+/* 2) Asigna un ancho máximo o mínimo a cada <select>
+   para que se distribuyan mejor dentro del flex */
+.table-custom tbody td:first-child .swap-select {
+  flex: 1 1 auto;       /* Que crezca/comprime según disponibilidad */
+  min-width: 6rem;      /* Ancho mínimo para que no se achique tanto */
+}
+
+.table-custom tbody td:first-child .type-select {
+  flex: 0 0 auto;       /* Que conserve su ancho “natural” */
+  min-width: 5rem;      /* Ancho mínimo para mostrar “Franco” sin apretar */
+}
+
+/* 3) Opcional: si deseas que la cabecera refleje un padding similar,
+   ajusta el <th> correspondiente (recuerda que en <thead> usamos colspan="2") */
+.table-custom thead th:first-child {
+  padding: 0.75rem 0.5rem;  /* Ajusta a tu gusto */
+}
